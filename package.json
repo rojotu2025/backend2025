@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "dev": "nodemon node server.js",
-    "start": "node local.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "@vendia/serverless-express": "^4.3.2",
