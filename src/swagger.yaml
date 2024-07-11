@@ -1,0 +1,69 @@
+openapi: "3.0.0"
+info:
+  title: Test
+  description: Test
+  version: 1.0.0
+servers:
+- url: "{Url}/{Ambiente}"
+  variables:
+    Url:
+      default: "Ingrese url prd o qa"
+    Ambiente:
+      default: "qa"
+paths:
+  /api:
+    get:
+      tags:
+        - Test
+      summary: Test 
+      description: Test
+      x-amazon-apigateway-integration:
+        httpMethod: "POST"
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ApiFunctionBacnEndTuya.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        type: "aws_proxy" 
+  /api/getUsers:
+    get:
+      tags:
+        - Test
+      summary: Test 
+      description: Test
+      x-amazon-apigateway-integration:
+        httpMethod: "POST"
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ApiFunctionBacnEndTuya.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        type: "aws_proxy" 
+  /api-docs/:
+    get:
+      tags:
+        - Doc
+      parameters:
+      - name: "proxy"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      x-amazon-apigateway-integration:
+        httpMethod: "POST"
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ApiFunctionBacnEndTuya.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        type: "aws_proxy"
+  /api-docs/{proxy+}:
+    get:
+      tags:
+        - Doc
+      parameters:
+      - name: "proxy"
+        in: "path"
+        required: true
+        schema:
+          type: "string"
+      x-amazon-apigateway-integration:
+        httpMethod: "POST"
+        uri: 
+          Fn::Sub: "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ApiFunctionBacnEndTuya.Arn}/invocations"
+        passthroughBehavior: "when_no_match"
+        type: "aws_proxy"
