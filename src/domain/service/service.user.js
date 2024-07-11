@@ -96,7 +96,7 @@ const userHasChangedIdentityS = async(req, res) =>{
         const { usuario, identidad } = req.body;
                 const userIdentity = await updateUserIdentityR(usuario, identidad);
                 if (userIdentity) {
-                    const erasePedido = await updateUserPedidoR(usuario, "");
+                    const erasePedido = await updateUserPedidoR(usuario, []);
                     if(erasePedido){
                         response.code=200
                         response.message="Exito!"
