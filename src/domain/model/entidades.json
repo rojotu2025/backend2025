@@ -1,0 +1,38 @@
+{
+    "prenda":{
+        "referencia": "STRING",
+        "nombre_prenda": "STRING",
+        "descripcion": "STRING",
+        "proveedor": "STRING",
+        "ubicacion_archivo": "STRING",
+        "nombre_archivo": "STRING",
+        "tipo": "STRING",
+        "clima": "STRING",
+        "segmento_Prenda": "STRING",
+        "genero": "STRING",
+        "identidad": "STRING",
+        "tallas": "STRING",
+        "rol": "STRING",
+        "pais": "STRING",
+        "grupo": "STRING",
+        "dia": "STRING",
+        "referencia_prenda_superior": "STRING",
+        "referencia_prenda_inferior": "STRING ",
+        "referencia_chaqueta": "STRING",
+        "prenda_front": "BOOLEAN"
+    }, 
+    "carrito_prendas":{
+        "id": "INTEGER",
+        "id_carrito": "INTEGER",
+        "prendaId":"INTEGER"
+    },
+    "carrito":{
+        "usuario": "STRING",
+        "id_carrito_usuario": "STRING",
+        "estado_carrito": {
+            "ENUM": ["creado", "pendiente", "enviado"]
+        },
+        "fecha_solicitud": "DATEONLY",
+        "fecha_actualizacion": "DATEONLY"
+    }
+}
