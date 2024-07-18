@@ -17,6 +17,7 @@ function model(sequelize) {
             model: 'prendas',
             key: 'id',
         },
+        image:{ type: Sequelize.STRING, },
         rol: { type: Sequelize.STRING, },
         clima:{ type: Sequelize.STRING, },
         identidad:{ type: Sequelize.STRING},
