@@ -19,16 +19,17 @@ const buscarCarritoR = async (usuario) => {
             let prenda = {}
             prenda = await db.prendas.findOne({
                 where:{id: carrito[index].dataValues.id_prenda}
+                
             })
-            const id_prenda_carrito = carrito[0].dataValues.id_prenda_carrito
-            const talla = carrito[0].dataValues.talla
-            const cantidad = carrito[0].dataValues.cantidad
+            const id_prenda_carrito = carrito[index].dataValues.id_prenda_carrito
+            const talla = carrito[index].dataValues.talla
+            const cantidad = carrito[index].dataValues.cantidad
             prendas.push({...prenda.dataValues, id_prenda_carrito, talla, cantidad})
         }
         
         return { carrito_id: carrito_id.id, prendas}
     } catch (error) {
-        return false;
+        return { error: error }
     }
 }
 
