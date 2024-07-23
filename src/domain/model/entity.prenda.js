@@ -25,6 +25,7 @@ function model(sequelize) {
         segmento_Prenda: { type: Sequelize.STRING, allowNull: true},
         ubicacion_archivo: { type: Sequelize.STRING, allowNull: true },
         nombre_archivo: { type: Sequelize.STRING, allowNull: true },
+        prenda_front : { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false },
     }
     const options = {
         timestamps: false
