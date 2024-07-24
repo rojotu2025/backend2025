@@ -21,7 +21,7 @@ function model(sequelize) {
         grupo: { type: Sequelize.STRING, allowNull: false },
         referencia_prenda_superior: { type: Sequelize.STRING, allowNull: true },
         referencia_prenda_inferior: { type: Sequelize.STRING, allowNull: true },
-        referencia_chaqueta: { type: Sequelize.STRING, allowNull: true },
+        referencia_otro: { type: Sequelize.STRING, allowNull: true },
         segmento_Prenda: { type: Sequelize.STRING, allowNull: true},
         ubicacion_archivo: { type: Sequelize.STRING, allowNull: true },
         nombre_archivo: { type: Sequelize.STRING, allowNull: true },
