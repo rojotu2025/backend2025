@@ -19,7 +19,7 @@ const buscarCarritoC = async (req, res) => {
 const agregarPrendaC = async (req, res) => {
     let { id_prenda, talla, dia } = req.body;
     if (req.header("token") && id_prenda && talla) {
-        const response = await agregarPrendaS(req, id_prenda, talla, dia ="" );
+        const response = await agregarPrendaS(req, id_prenda, talla, dia );
         return res.status(response.code).json(response)
     }else{
         let response = {
