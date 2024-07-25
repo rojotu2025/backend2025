@@ -9,7 +9,7 @@ function model(sequelize) {
         proveedor: { type: Sequelize.STRING, allowNull: true },
         tipo: {
             type: Sequelize.ENUM,
-            values: [ 'PRENDA', 'OUTFIT', 'LOOKBOOK', 'PRENDA_LOOKBOOK' ],
+            values: [ 'PRENDA', 'OUTFIT', 'LOOKBOOK', 'PRENDA_LOOKBOOK', 'CHAQUETA', 'SACO', 'VESTIDO', 'TRAJE', 'ENTERIZO' ],
         },
         clima: { type: Sequelize.STRING, allowNull: false },
         genero: { type: Sequelize.STRING, allowNull: false },
