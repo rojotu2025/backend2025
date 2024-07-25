@@ -37,7 +37,7 @@ const buscarCarritoS = async (req, res) => {
     return response
 }
 
-const agregarPrendaS = async (req, id_prenda, talla, dia) => {
+const agregarPrendaS = async (req, id_prenda, talla, dia="") => {
     let response = {
         code: "",
         message: "",
