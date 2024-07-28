@@ -51,12 +51,12 @@ const agregarPrendaS = async (req, id_prenda, talla, dia="") => {
         const prenda = await agregarPrendaR(d.usuario, id_prenda, talla, dia);
         if (prenda) {
             response.code = 200
-            response.message = "autorizado"
+            response.message = "Exito!"
             response.data = prenda
             response.token = usuario.token;
         } else {
             response.code = 200
-            response.message = "Error al guardar!"
+            response.message = "No se puede agegar esta prenda al carrito"
             response.data = []
             response.token = usuario.token;
         }
