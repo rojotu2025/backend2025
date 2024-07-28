@@ -1,7 +1,7 @@
 const db = require("../model/index.js");
 const { Op } = require('sequelize');
 const { buscarCarritoUsuarioR, buscarParametrosUsuarioR } = require("../repository/repository.user.js");
-const { listarPrendasCarritoR } = require("./repository.prendas.js");
+const { listarPrendasCarritoR, validateParamsPrendaR } = require("./repository.prendas.js");
 
 const buscarCarritoR = async (usuario) => {
     try {
@@ -34,20 +34,25 @@ const agregarPrendaR = async (usuario, id_prenda, talla, dia) => {
     try {
         const carrito_id = await buscarCarritoUsuarioR(usuario);
         const id = await createCarritoR(carrito_id);
+        const isValid = await validateParamsPrendaR(usuario, id_prenda);
+        console.log(isValid);
+        if (isValid) {
+            return await db.carrito_prendas.bulkCreate
+                (
+                    [
+                        {
 
-        return await db.carrito_prendas.bulkCreate
-            (
-                [
-                    {
-                        
-                        id_carrito: id,
-                        id_prenda: id_prenda,
-                        talla: talla,
-                        dia: dia
-                    },
-                ],
-                { updateOnDuplicate: ['talla', 'dia'] },
-            )
+                            id_carrito: id,
+                            id_prenda: id_prenda,
+                            talla: talla,
+                            dia: dia
+                        },
+                    ],
+                    { updateOnDuplicate: ['talla', 'dia'] },
+                )
+        } else {
+            return false;
+        }
     } catch (error) {
         return false;
     }
