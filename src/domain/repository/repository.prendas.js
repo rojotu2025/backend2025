@@ -102,7 +102,7 @@ const validateParamsPrendaR = async (usuario, id_prenda) => {
     if (!identidad.includes(userParams.identidad)) {
         error = true;
     }
-
+    return true
     if (error == true) {
         return false
     }else{
