@@ -103,11 +103,6 @@ const validateParamsPrendaR = async (usuario, id_prenda) => {
         error = true;
     }
     return true
-    if (error == true) {
-        return false
-    }else{
-        return true
-    }
 
 }
 
