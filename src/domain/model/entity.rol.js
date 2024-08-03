@@ -11,7 +11,6 @@ function model(sequelize) {
         prendas_inferiores: { type: Sequelize.STRING, allowNull: false },
         prendas_otros: { type: Sequelize.STRING, allowNull: false },
         total: { type: Sequelize.STRING, allowNull: false },
-        url_3d: { type: Sequelize.STRING, allowNull: false },
     }
     const options = {
         timestamps: false

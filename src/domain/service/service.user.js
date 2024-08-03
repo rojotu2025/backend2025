@@ -29,8 +29,8 @@ const authUserS = async (req, res) => {
 
     let { usuario, password } = req.body;
 
-    password = await decrypt(password, process.env.ENCRYPT_TOKEN_SECRET)
-    usuario = await decrypt(usuario, process.env.ENCRYPT_TOKEN_SECRET)
+    // password = await decrypt(password, process.env.ENCRYPT_TOKEN_SECRET)
+    // usuario = await decrypt(usuario, process.env.ENCRYPT_TOKEN_SECRET)
     const userT = await searchUserR(usuario);
 
     if (!userT) {
@@ -59,14 +59,17 @@ const authUserS = async (req, res) => {
             genero: userT.genero,
             clima: userT.clima,
             grupo: userT.grupo,
+            ciudad: userT.ciudad,
             pais: userT.pais,
+            sucursal: userT.sucursal,
+            cargo: userT.cargo,
+            vp: userT.VP,
             identidad: userT.identidad,
             prendas_superiores: userT.prendas_superiores,
             prendas_inferiores: userT.prendas_inferiores,
             prendas_otros: userT.prendas_otros,
             total: userT.total,
             correo: encrypt(userT.correo, process.env.ENCRYPT_TOKEN_SECRET),
-            url_3d: encrypt(userT.url_3d, process.env.ENCRYPT_TOKEN_SECRET),
             primer_ingreso: userT.primer_ingreso,
             administrador: userT.administrador
         }

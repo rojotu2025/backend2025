@@ -138,11 +138,16 @@ const searchUserR = async (userS) => {
             const hashedPass = await bcrypt.hash(user.contrasena, 8);
             return {
                 user: user.usuario,
-                nombre: user.nombre_colaborador,
+                nombre: user.nombre,
                 password: hashedPass,
+                ciudad: user.ciudad,
+                pais: user.pais,
+                sucursal: user.sucursal,
                 clima: user.clima,
                 grupo: user.grupo,
+                cargo: user.cargo,
                 rol: user.rol,
+                VP:user.VP,
                 genero: user.genero,
                 pais: user.pais,
                 identidad:user.identidad,
@@ -150,7 +155,6 @@ const searchUserR = async (userS) => {
                 prendas_inferiores: limites[0].prendas_inferiores,
                 prendas_otros: limites[0].prendas_otros,
                 total: limites[0].total,
-                url_3d: limites[0].url_3d,
                 correo: user.correo,
                 primer_ingreso: user.primer_ingreso,
                 administrador: user.administrador
@@ -159,6 +163,8 @@ const searchUserR = async (userS) => {
             return false
         }
     } catch (error) {
+        console.log(error);
+        
         return false
     }
 }

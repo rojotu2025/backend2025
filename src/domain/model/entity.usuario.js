@@ -7,21 +7,23 @@ function model(sequelize) {
             primaryKey: true,
             autoIncrement: true
         },
+
         nro_documento: { type: Sequelize.STRING, allowNull: false },
-        nombre_colaborador: { type: Sequelize.STRING, allowNull: false },
+        nombre: { type: Sequelize.STRING, allowNull: false },
         correo: { type: Sequelize.STRING, allowNull: true },
-        unidad_negocio: { type: Sequelize.STRING, allowNull: false },
-        pais: { type: Sequelize.STRING, allowNull: false },
-        posicion: { type: Sequelize.STRING, allowNull: false },
-        departamento: { type: Sequelize.STRING, allowNull: false },
+        VP: { type: Sequelize.STRING, allowNull: true },
+        cargo: { type: Sequelize.STRING, allowNull: true },
+
         ciudad: { type: Sequelize.STRING, allowNull: true },
-        tipo_contrato: { type: Sequelize.STRING, allowNull: false },
         sucursal: { type: Sequelize.STRING, allowNull: false },
+
+        pais: { type: Sequelize.STRING, allowNull: false },
         genero: { type: Sequelize.STRING, allowNull: false },
         identidad: { type: Sequelize.STRING, allowNull: false },
         clima: { type: Sequelize.STRING, allowNull: true },
         rol: { type: Sequelize.STRING, allowNull: false },
         grupo: { type: Sequelize.STRING, allowNull: false },
+
         usuario: { type: Sequelize.STRING, allowNull: true },
         contrasena: { type: Sequelize.STRING, allowNull: false },
         primer_ingreso: { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: true },
