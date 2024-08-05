@@ -153,8 +153,7 @@ const searchUserR = async (userS) => {
                 usuario: userS
             }
         });
-        console.log(userS);
-        
+
         if (user.usuario) {
             const limites = await buscarLimitesR(user.pais, user.genero, user.rol, user.clima, user.grupo);
             const hashedPass = await bcrypt.hash(user.contrasena, 8);
