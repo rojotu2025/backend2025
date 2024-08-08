@@ -119,7 +119,7 @@ const enviarCarritoS = async (req, res) => {
         if (pedidoEnviado) {
             try {
                 const user = await searchUserR(d.usuario);
-                const mailEnviado = await enviarMailCarritoS(user.correo, "Coleccion RojoTu", `Tu pedido ha sido enviado exitosamente!`, user.nombre)
+                const mailEnviado = enviarMailCarritoS(user.correo, "Coleccion RojoTu", `Tu pedido ha sido enviado exitosamente!`, user.nombre)
                 if (mailEnviado) {
                     response.code = 200,
                     response.message = "¡Se ha enviado tu pedido exitosamente!"
@@ -150,7 +150,7 @@ const enviarCarritoS = async (req, res) => {
     return response
 }
 
-const enviarMailCarritoS = async (correoUser, subject, texto, usuario) => {
+const enviarMailCarritoS = (correoUser, subject, texto, usuario) => {
     const transporter = nodemailer.createTransport({
         host: process.env.EMAIL_HOST,
         port: process.env.EMAIL_PORT,
