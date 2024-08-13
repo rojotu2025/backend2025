@@ -4,7 +4,7 @@ function model(sequelize) {
     const attributes = {
         referencia: { type: Sequelize.STRING, allowNull: false },
         nombre_prenda: { type: Sequelize.STRING, allowNull: false },
-        descripcion: { type: Sequelize.STRING, allowNull: true },
+        descripcion: { type: Sequelize.TEXT('long'), allowNull: true },
         composicion: { type: Sequelize.STRING, allowNull: true },
         proveedor: { type: Sequelize.STRING, allowNull: true },
         tipo: {
