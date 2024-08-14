@@ -14,7 +14,6 @@ const reportLogsUsersR = async () => {
             raw: true,
         })
 
-        // Procesar los datos
         const result = {};
         logsCount.forEach(log => {
             const { count, sucursal, genero, primer_ingreso, pais } = log;
@@ -26,8 +25,8 @@ const reportLogsUsersR = async () => {
             if (!result[pais][sucursal]) {
                 result[pais][sucursal] = {
                     totals: {
-                        carrito_enviado: 0,
-                        carrito_no_enviado: 0
+                        ingresos: 0,
+                        no_ingresos: 0
                     },
                     list: []
                 };
@@ -37,15 +36,14 @@ const reportLogsUsersR = async () => {
                 count,
                 sucursal,
                 genero,
-                carrito_enviado: primer_ingreso, // Asumimos que primer_ingreso es equivalente a carrito_enviado
+                ingresos: primer_ingreso,
             });
             
-            if (primer_ingreso) {
-                result[pais][sucursal].totals.carrito_enviado += count;
+            if (primer_ingreso==0) {
+                result[pais][sucursal].totals.ingresos += count;
             } else {
-                result[pais][sucursal].totals.carrito_no_enviado += count;
+                result[pais][sucursal].totals.no_ingresos += count;
             }
-
         });
         return result
     } catch (error) {
