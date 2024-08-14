@@ -118,10 +118,10 @@ const updateUserIdentityR = async (userS, identidad) => {
 const logsLogIn = async (userS) => {
     const userParams = await buscarParametrosUsuarioR(userS);
     try {
-        if (!userParams.primer_ingreso) {
+        if (userParams.primer_ingreso) {
             return await db.usuarios.update(
                 {
-                    primer_ingreso: true
+                    primer_ingreso: false
                 },
                 {
                     where: {
