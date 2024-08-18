@@ -79,7 +79,27 @@ const reportLogsUsersR = async () => {
             }
         });
 
-        return result
+        const logsCount = await db.logs.count({
+            attributes: [
+                [sequelize.literal(`COUNT(DISTINCT(usuario))`), 'count'],
+            ],
+            group: ["sucursal", "genero", "carrito_enviado", "pais"],
+            raw: true,
+        })
+
+        let total_carritos_enviados = 0;
+        let total_carritos_no_enviados = 0;
+
+        logsCount.forEach(log => {
+            const { count, carrito_enviado } = log;
+            if (carrito_enviado) {
+                total_carritos_enviados += count;
+            } else {
+                total_carritos_no_enviados += count;
+            }
+        });
+
+        return { result, total_carritos_enviados, total_carritos_no_enviados }
     } catch (error) {
         console.log(error);
         return false
