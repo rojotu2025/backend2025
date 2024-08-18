@@ -131,6 +131,7 @@ const reportLogsUsersR = async () => {
             }
 
             result[pais][sucursal].carritos[genero] = {
+                ...result[pais][sucursal].carritos[genero],
                 carritos_enviados: count,
             }
         })
