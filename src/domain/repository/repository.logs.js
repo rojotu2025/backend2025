@@ -73,22 +73,22 @@ const reportLogsUsersR = async () => {
                     carritos: {},
                     ingresos: [
                         {
-                            "genero": "FEMENINO",
+                            "genero": "MASCULINO",
                             "ingreso": true,
                             "cantidad": 0
                         },
                         {
                             "genero": "FEMENINO",
+                            "ingreso": true,
+                            "cantidad": 0
+                        },
+                        {
+                            "genero": "MASCULINO",
                             "ingreso": false,
                             "cantidad": 0
                         },
                         {
-                            "genero": "MASCULINO",
-                            "ingreso": true,
-                            "cantidad": 0
-                        },
-                        {
-                            "genero": "MASCULINO",
+                            "genero": "FEMENINO",
                             "ingreso": false,
                             "cantidad": 0
                         }
@@ -117,19 +117,19 @@ const reportLogsUsersR = async () => {
                     },
                     carritos: {},
                     ingresos: [
-                    {
+{
                         "genero": "MASCULINO",
                         "ingreso": true,
                         "cantidad": 0
                     },
                     {
                         "genero": "FEMENINO",
-                        "ingreso": false,
+                        "ingreso": true,
                         "cantidad": 0
                     },
                     {
                         "genero": "MASCULINO",
-                        "ingreso": true,
+                        "ingreso": false,
                         "cantidad": 0
                     },
                     {
@@ -149,9 +149,9 @@ const reportLogsUsersR = async () => {
                 }
             } else {
                 if (genero == "MASCULINO") {
-                    result[pais][sucursal].ingresos[0].cantidad = count
+                    result[pais][sucursal].ingresos[2].cantidad = count
                 }else{
-                    result[pais][sucursal].ingresos[1].cantidad = count
+                    result[pais][sucursal].ingresos[3].cantidad = count
                 }
             }
 
