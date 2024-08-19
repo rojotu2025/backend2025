@@ -70,7 +70,16 @@ const reportLogsUsersR = async () => {
                         carritos_enviados: 0,
                         carritos_no_enviados: 0,
                     },
-                    carritos: {},
+                    carritos: {
+                        "FEMENINO": {
+                            "carritos_enviados": 0,
+                            "carritos_no_enviados": 0
+                        },
+                        "MASCULINO": {
+                            "carritos_enviados": 0,
+                            "carritos_no_enviados": 0
+                        }
+                    },
                     ingresos: [
                         {
                             "genero": "MASCULINO",
@@ -114,43 +123,53 @@ const reportLogsUsersR = async () => {
                     totals: {
                         nro_ingresos: 0,
                         usuarios_no_loggeados: 0,
+                        carritos_enviados: 0,
+                        carritos_no_enviados: 0,
                     },
-                    carritos: {},
+                    carritos: {
+                        "FEMENINO": {
+                            "carritos_enviados": 0,
+                            "carritos_no_enviados": 0
+                        },
+                        "MASCULINO": {
+                            "carritos_enviados": 0,
+                            "carritos_no_enviados": 0
+                        }
+                    },
                     ingresos: [
-{
-                        "genero": "MASCULINO",
-                        "ingreso": true,
-                        "cantidad": 0
-                    },
-                    {
-                        "genero": "FEMENINO",
-                        "ingreso": true,
-                        "cantidad": 0
-                    },
-                    {
-                        "genero": "MASCULINO",
-                        "ingreso": false,
-                        "cantidad": 0
-                    },
-                    {
-                        "genero": "FEMENINO",
-                        "ingreso": false,
-                        "cantidad": 0
-                    }]
+                        {
+                            "genero": "MASCULINO",
+                            "ingreso": true,
+                            "cantidad": 0
+                        },
+                        {
+                            "genero": "FEMENINO",
+                            "ingreso": true,
+                            "cantidad": 0
+                        },
+                        {
+                            "genero": "MASCULINO",
+                            "ingreso": false,
+                            "cantidad": 0
+                        },
+                        {
+                            "genero": "FEMENINO",
+                            "ingreso": false,
+                            "cantidad": 0
+                        }]
                 };
             }
 
-            
             if (primer_ingreso == 0) {
                 if (genero == "MASCULINO") {
                     result[pais][sucursal].ingresos[0].cantidad = count
-                }else{
+                } else {
                     result[pais][sucursal].ingresos[1].cantidad = count
                 }
             } else {
                 if (genero == "MASCULINO") {
                     result[pais][sucursal].ingresos[2].cantidad = count
-                }else{
+                } else {
                     result[pais][sucursal].ingresos[3].cantidad = count
                 }
             }
