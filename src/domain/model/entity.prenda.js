@@ -9,13 +9,13 @@ function model(sequelize) {
         proveedor: { type: Sequelize.STRING, allowNull: true },
         tipo: {
             type: Sequelize.ENUM,
-            values: [ 'PRENDA', 'OUTFIT', 'LOOKBOOK', 'PRENDA_LOOKBOOK', 'CHAQUETA', 'SACO', 'VESTIDO', 'TRAJE', 'ENTERIZO' ],
+            values: [ 'PRENDA', 'OUTFIT', 'LOOKBOOK', 'PRENDA_LOOKBOOK', 'CHAQUETA', 'SACO', 'VESTIDO', 'TRAJE', 'ENTERIZO', 'LOOKBOOK/OUTFIT' ],
         },
         clima: { type: Sequelize.STRING, allowNull: false },
         genero: { type: Sequelize.STRING, allowNull: false },
         identidad: { type: Sequelize.STRING, allowNull: false },
         tallas: { type: Sequelize.STRING, allowNull: true },
-        dias: { type: Sequelize.STRING, allowNull: true },
+        dia: { type: Sequelize.STRING, allowNull: true },
         rol: { type: Sequelize.STRING, allowNull: false },
         pais: { type: Sequelize.STRING, allowNull: false },
         grupo: { type: Sequelize.STRING, allowNull: false },
@@ -26,6 +26,10 @@ function model(sequelize) {
         ubicacion_archivo: { type: Sequelize.STRING, allowNull: true },
         nombre_archivo: { type: Sequelize.STRING, allowNull: true },
         prenda_front : { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false },
+        detalle1: { type: Sequelize.TEXT('long'), allowNull: true },
+        detalle2: { type: Sequelize.TEXT('long'), allowNull: true },
+        detalle3: { type: Sequelize.TEXT('long'), allowNull: true },
+        observaciones: { type: Sequelize.TEXT('long'), allowNull: true },
     }
     const options = {
         timestamps: false
