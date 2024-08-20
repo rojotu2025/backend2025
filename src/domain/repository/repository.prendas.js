@@ -20,7 +20,9 @@ const listarPrendasR = async (genero, rol, clima, grupo, pais, identidad, tipo) 
             pais: {
                 [Op.substring]: pais
             },
-            tipo: tipo
+            tipo: {
+                [Op.substring]: tipo
+            }
         },
         raw: true
     })
