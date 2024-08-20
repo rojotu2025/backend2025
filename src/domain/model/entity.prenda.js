@@ -15,7 +15,7 @@ function model(sequelize) {
         genero: { type: Sequelize.STRING, allowNull: false },
         identidad: { type: Sequelize.STRING, allowNull: false },
         tallas: { type: Sequelize.STRING, allowNull: true },
-        dia: { type: Sequelize.STRING, allowNull: true },
+        dias: { type: Sequelize.STRING, allowNull: true },
         rol: { type: Sequelize.STRING, allowNull: false },
         pais: { type: Sequelize.STRING, allowNull: false },
         grupo: { type: Sequelize.STRING, allowNull: false },
