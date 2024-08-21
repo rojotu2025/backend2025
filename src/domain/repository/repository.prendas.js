@@ -28,18 +28,41 @@ const listarPrendasR = async (genero, rol, clima, grupo, pais, identidad, tipo) 
             raw: true
         })
 
-        if (tipo == "LOOKBOOK" ) {
+        if (tipo == "LOOKBOOK") {
             prendas.forEach(prenda => {
-               prenda.tipo = "LOOKBOOK" 
+                prenda.tipo = "LOOKBOOK"
             });
         }
 
-        if (tipo == "LOOKBOOK" ) {
+        if (tipo == "LOOKBOOK") {
             prendas.forEach(prenda => {
-                prenda.tipo = "OUTFIT" 
-             });
+                prenda.tipo = "OUTFIT"
+            });
         }
 
+        prendas.forEach(prenda => {
+            prenda['detalles'] = []
+            if (prenda.detalle1 !== "") {
+                prenda['detalles'].push({ 'detalle1': prenda.detalle1 })
+                delete prenda.detalle1
+            } else {
+                delete prenda.detalle1
+            }
+
+            if (prenda.detalle2 !== "") {
+                prenda['detalles'].push({ 'detalle2': prenda.detalle2 })
+                delete prenda.detalle2
+            } else {
+                delete prenda.detalle2
+            }
+
+            if (prenda.detalle3 !== "") {
+                prenda['detalles'].push({ 'detalle3': prenda.detalle3 })
+                delete prenda.detalle3
+            } else {
+                delete prenda.detalle3
+            }
+        });
         return prendas;
     } catch (error) {
         console.log(error);
