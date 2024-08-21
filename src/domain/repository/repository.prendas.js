@@ -40,8 +40,6 @@ const listarPrendasR = async (genero, rol, clima, grupo, pais, identidad, tipo) 
              });
         }
 
-
-        console.log(prendas);
         return prendas;
     } catch (error) {
         console.log(error);
