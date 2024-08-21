@@ -208,8 +208,7 @@ const enviarCarritoS = async (req, res) => {
     const d = await decode(req.header("token"));
     const usuario = isValid;
     if ((isValid).code == 200) {
-        const pedidoEnviado = true
-        //const pedidoEnviado = await enviarCarritoR(d.usuario);
+        const pedidoEnviado = await enviarCarritoR(d.usuario);
         if (pedidoEnviado) {
             try {
                 const user = await searchUserR(d.usuario);
