@@ -279,7 +279,7 @@ const reportLogsDayUsersR = async () => {
                 [sequelize.literal(`DATE(createdAt)`), 'fecha'],
                 [sequelize.literal(`COUNT(id)`), 'count']
             ],
-            group: ["fecha", "sucursal", "genero"],
+            group: ["fecha"],
             raw: true,
         })
 
@@ -290,10 +290,7 @@ const reportLogsDayUsersR = async () => {
             raw: true,
         })
 
-        return {
-            detalle: logsCount,
-            total: totalLogs
-        };
+        return { logs : logsCount, total: totalLogs }
     } catch (error) {
         console.log(error);
         return false
