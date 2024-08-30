@@ -194,7 +194,8 @@ const searchUserR = async (userS) => {
                 total: limites.total,
                 correo: user.correo,
                 primer_ingreso: user.primer_ingreso,
-                administrador: user.administrador
+                administrador: user.administrador,
+                dashboard: user.dashboard
             }
         } else {
             return []
