@@ -70,7 +70,8 @@ const authUserS = async (req, res) => {
             total: userT.total,
             correo: encrypt(userT.correo, process.env.ENCRYPT_TOKEN_SECRET),
             primer_ingreso: userT.primer_ingreso,
-            administrador: userT.administrador
+            administrador: userT.administrador,
+            dashboard: userT.dashboard
         }
         return response
     }
