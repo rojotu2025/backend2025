@@ -1,7 +1,5 @@
 const { Op } = require("sequelize");
-const { Sequelize } = require("sequelize");
 const db = require("../model/index.js");
-const { buscarParametrosUsuarioR } = require("./repository.user.js");
 
 const listarPrendasR = async (genero, rol, clima, grupo, pais, identidad, tipo) => {
     tipo = tipo.toUpperCase()
@@ -24,20 +22,50 @@ const listarPrendasR = async (genero, rol, clima, grupo, pais, identidad, tipo) 
                     [Op.substring]: rol
                 },
                 pais: {
-                    [Op.substring]: pais 
+                    [Op.substring]: pais
                 },
                 grupo: {
                     [Op.substring]: grupo
                 },
-
             },
             raw: true
         })
-
         if (tipo.toUpperCase() == "LOOKBOOK") {
+            var arrLunes = []
+            var arrMartes = []
+            var arrMiercoles = []
+            var arrJueves = []
+            var arrViernes = []
+            var defaultDay = []
             prendas.forEach(prenda => {
                 prenda.tipo = "LOOKBOOK"
+                switch (prendas.dias) {
+                    case "LUNES":
+                        arrLunes.push(prenda)
+                        break;
+
+                    case "MARTES":
+                        arrMartes.push(prenda)
+                        break;
+
+                    case "MIERCOLES":
+                        arrMiercoles.push(prenda)
+                        break;
+
+                    case "JUEVES":
+                        arrJueves.push(prenda)
+                        break;
+
+                    case "VIERNES":
+                        arrViernes.push(prenda)
+                        break;
+
+                    default:
+                        defaultDay.push(prenda)
+                        break;
+                }
             });
+            return [...arrLunes, ...arrMartes, ...arrMiercoles, ...arrJueves, ...arrViernes, ...defaultDay]
         }
 
         if (tipo.toUpperCase() == "OUTFIT") {
@@ -69,6 +97,10 @@ const listarPrendasR = async (genero, rol, clima, grupo, pais, identidad, tipo) 
                 delete prenda.detalle3
             }
         });
+
+        if (prendas == []) {
+            return false
+        }
 
         return prendas;
     } catch (error) {
@@ -109,7 +141,7 @@ const buscarPrendaR = async (id_prenda) => {
             },
             raw: true
         });
-        
+
 
         if (prenda.tipo.toUpperCase() == "LOOKBOOK") {
             prenda.tipo = "LOOKBOOK"
@@ -140,7 +172,7 @@ const buscarPrendaR = async (id_prenda) => {
         } else {
             delete prenda.detalle3
         }
-        if (prenda==null) {
+        if (prenda == null) {
             return false
         }
         return prenda;
