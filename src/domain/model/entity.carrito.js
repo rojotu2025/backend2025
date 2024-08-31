@@ -10,7 +10,7 @@ function model(sequelize) {
 
         estado_carrito: {
             type: Sequelize.ENUM,
-            values: ['creado', 'enviado'],
+            values: ['creado','pendiente','enviado'],
         },
 
         fecha_solicitud: {
