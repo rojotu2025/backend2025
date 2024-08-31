@@ -28,8 +28,8 @@ const authUserS = async (req, res) => {
 
     let { usuario, password } = req.body;
 
-    //password = await decrypt(password, process.env.ENCRYPT_TOKEN_SECRET)
-    //usuario = await decrypt(usuario, process.env.ENCRYPT_TOKEN_SECRET)
+    password = await decrypt(password, process.env.ENCRYPT_TOKEN_SECRET)
+    usuario = await decrypt(usuario, process.env.ENCRYPT_TOKEN_SECRET)
     const userT = await searchUserR(usuario);
     console.log(usuario);
     
