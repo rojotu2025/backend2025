@@ -51,7 +51,7 @@ const listarPrendasR = async (genero, rol, clima, grupo, pais, identidad, tipo) 
             var arrViernes = []
             var defaultDay = []
             prendas.forEach(prenda => {
-                switch (prendas.dias) {
+                switch (prenda.dias) {
                     case "LUNES":
                         arrLunes.push(prenda)
                         break;
