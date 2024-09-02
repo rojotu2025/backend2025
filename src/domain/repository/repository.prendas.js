@@ -30,7 +30,20 @@ const listarPrendasR = async (genero, rol, clima, grupo, pais, identidad, tipo) 
             },
             raw: true
         })
+
+        if (tipo.toUpperCase() == "OUTFIT") {
+            prendas.forEach(prenda => {
+                prenda.tipo = "OUTFIT"
+            });
+        }
+
         if (tipo.toUpperCase() == "LOOKBOOK") {
+            prendas.forEach(prenda => {
+                prenda.tipo = "LOOKBOOK"
+            });
+        }
+        
+        if (tipo.toUpperCase() == "LOOKBOOK" || tipo.toUpperCase() == "OUTFIT") {
             var arrLunes = []
             var arrMartes = []
             var arrMiercoles = []
@@ -38,7 +51,6 @@ const listarPrendasR = async (genero, rol, clima, grupo, pais, identidad, tipo) 
             var arrViernes = []
             var defaultDay = []
             prendas.forEach(prenda => {
-                prenda.tipo = "LOOKBOOK"
                 switch (prendas.dias) {
                     case "LUNES":
                         arrLunes.push(prenda)
@@ -66,12 +78,6 @@ const listarPrendasR = async (genero, rol, clima, grupo, pais, identidad, tipo) 
                 }
             });
             return [...arrLunes, ...arrMartes, ...arrMiercoles, ...arrJueves, ...arrViernes, ...defaultDay]
-        }
-
-        if (tipo.toUpperCase() == "OUTFIT") {
-            prendas.forEach(prenda => {
-                prenda.tipo = "OUTFIT"
-            });
         }
 
         prendas.forEach(prenda => {
