@@ -56,6 +56,7 @@ const authUserS = async (req, res) => {
             primer_ingreso: userT.primer_ingreso,
             administrador: userT.administrador,
             dashboard: userT.dashboard
+        }
         return response
     } catch (error) {
         response.code = 401
