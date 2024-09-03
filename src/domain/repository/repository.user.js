@@ -164,14 +164,6 @@ const searchUserR = async (userS) => {
             user.clima = user.clima.toUpperCase()
             user.rol = user.rol.toUpperCase()
             const limites = await buscarLimitesR(user.pais, user.genero, user.rol, user.clima, user.grupo);
-
-            if(user.administrador==true){
-                limites.prendas_superiores = 5 
-                limites.prendas_inferiores = 5 
-                limites.prendas_otros = 5 
-                limites.total = 15
-            }
-
             const hashedPass = await bcrypt.hash(user.contrasena, 8);
             return {
                 user: user.usuario,
