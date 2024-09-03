@@ -31,15 +31,16 @@ const authUserS = async (req, res) => {
 
     usuario = await decrypt(usuario, process.env.ENCRYPT_TOKEN_SECRET)
     const userT = await searchUserR(usuario);
-    password = await decrypt(password, process.env.ENCRYPT_TOKEN_SECRET)
-    const isValid = await bcrypt.compare(password, userT.password);
-    
     if (!userT) {
         response.code = 401
         response.message = "Contaseña y/o usuario incorrecto"
         response.data = []
         return response
     }
+    password = await decrypt(password, process.env.ENCRYPT_TOKEN_SECRET)
+    const isValid = await bcrypt.compare(password, userT.password);
+    
+
     if (!isValid) {
         response.code = 401
         response.message = "Contaseña y/o usuario incorrecto"
