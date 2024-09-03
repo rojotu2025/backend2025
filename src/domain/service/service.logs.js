@@ -13,7 +13,7 @@ const reportLogsUsersS = async (token) => {
     try {
         const isValid = await authS(token);
         const user = await searchUserR(isValid.data.usuario);
-        if ((isValid).code == 200 && user.dashboard == true) {
+        if ((isValid).code == 200 && user.dashboard == true || isValid.data.administrador == true) {
             const usuario = isValid;
             const Logs = await reportLogsUsersR();
             if (Logs) {
@@ -53,7 +53,7 @@ const reportLogsDayUsersS = async (token) => {
     try {
         const isValid = await authS(token);
         const user = await searchUserR(isValid.data.usuario);
-        if ((isValid).code == 200 && user.dashboard == true) {
+        if ((isValid).code == 200 && user.dashboard == true || isValid.data.administrador == true) {
             const usuario = isValid;
             const logs = await reportLogsDayUsersR();
             if (logs) {
