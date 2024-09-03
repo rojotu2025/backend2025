@@ -21,32 +21,15 @@ const authUserS = async (req, res) => {
     });
 
     let isValidFields = validateFields(schemaBody, req.body, response);
-
     if (isValidFields) {
         return response;
     }
-
-    let { usuario, password } = req.body;
-
-
-    usuario = await decrypt(usuario, process.env.ENCRYPT_TOKEN_SECRET)
-    const userT = await searchUserR(usuario);
-    if (!userT) {
-        response.code = 401
-        response.message = "Contaseña y/o usuario incorrecto"
-        response.data = []
-        return response
-    }
-    password = await decrypt(password, process.env.ENCRYPT_TOKEN_SECRET)
-    const isValid = await bcrypt.compare(password, userT.password);
-    
-
-    if (!isValid) {
-        response.code = 401
-        response.message = "Contaseña y/o usuario incorrecto"
-        response.data = []
-        return response
-    } else {
+    try {
+        let { usuario, password } = req.body;
+        usuario = await decrypt(usuario, process.env.ENCRYPT_TOKEN_SECRET)
+        const userT = await searchUserR(usuario);
+        password = await decrypt(password, process.env.ENCRYPT_TOKEN_SECRET)
+        const isValid = await bcrypt.compare(password, userT.password);
         const accessToken = await generateAccessTokenS(userT.user);
         await logsLogIn(userT.user);
         response.code = 200
@@ -73,7 +56,11 @@ const authUserS = async (req, res) => {
             primer_ingreso: userT.primer_ingreso,
             administrador: userT.administrador,
             dashboard: userT.dashboard
-        }
+        return response
+    } catch (error) {
+        response.code = 401
+        response.message = "Contaseña y/o usuario incorrecto"
+        response.data = []
         return response
     }
 }
