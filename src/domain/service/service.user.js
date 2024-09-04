@@ -30,6 +30,12 @@ const authUserS = async (req, res) => {
         const userT = await searchUserR(usuario);
         password = await decrypt(password, process.env.ENCRYPT_TOKEN_SECRET)
         const isValid = await bcrypt.compare(password, userT.password);
+        if (!isValid) {
+            response.code = 401
+            response.message = "Contaseña y/o usuario incorrecto"
+            response.data = []
+            return response
+        }
         const accessToken = await generateAccessTokenS(userT.user);
         await logsLogIn(userT.user);
         response.code = 200
