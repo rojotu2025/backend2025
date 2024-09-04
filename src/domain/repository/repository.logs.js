@@ -280,7 +280,11 @@ const reportLogsDayUsersR = async () => {
             group: ["fecha"],
             raw: true,
         })
-
+        
+        logsCount.forEach((log)=>{
+            log.fecha=log.fecha + 'T00:00:00';
+        })
+        
         const totalLogs = await db.logs.count({
             attributes: [
                 [sequelize.literal(`COUNT(id)`), 'count']
