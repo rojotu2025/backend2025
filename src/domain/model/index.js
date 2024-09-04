@@ -8,6 +8,7 @@ const sequelize = new Sequelize(process.env.DATABASE_NAME, process.env.DATABASE_
     host: process.env.DATABASE_HOST,
     port: process.env.DBPORT,
     dialect: process.env.DATABASE_DIALECT,
+    timezone: "America/Bogota",
     pool: {
         max: 5,
         min: 0
