@@ -240,18 +240,17 @@ const reportLogsUsersR = async () => {
                 ...result[pais][sucursal].carritos[genero],
                 carritos_enviados: count,
             }
-        })
-
-        carritosNoEnviados.forEach(carritos => {
-            const { count, sucursal, genero, pais } = carritos;
-            result[pais][sucursal].totals = {
-                ...result[pais][sucursal].totals,
-                carritos_no_enviados: result[pais][sucursal].carritos["MASCULINO"].carritos_no_enviados + result[pais][sucursal].carritos["FEMENINO"].carritos_no_enviados,
-            }
-
             result[pais][sucursal].totals = {
                 ...result[pais][sucursal].totals,
                 carritos_enviados: result[pais][sucursal].carritos["MASCULINO"].carritos_enviados + result[pais][sucursal].carritos["FEMENINO"].carritos_enviados,
+            }
+        })
+
+        carritosNoEnviados.forEach(carritos => {
+            const { sucursal, pais } = carritos;
+            result[pais][sucursal].totals = {
+                ...result[pais][sucursal].totals,
+                carritos_no_enviados: result[pais][sucursal].carritos["MASCULINO"].carritos_no_enviados + result[pais][sucursal].carritos["FEMENINO"].carritos_no_enviados,
             }
         })
         

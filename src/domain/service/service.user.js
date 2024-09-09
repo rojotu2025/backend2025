@@ -26,9 +26,9 @@ const authUserS = async (req, res) => {
     }
     try {
         let { usuario, password } = req.body;
-        usuario = await decrypt(usuario, process.env.ENCRYPT_TOKEN_SECRET);
+        //usuario = await decrypt(usuario, process.env.ENCRYPT_TOKEN_SECRET);
         const userT = await searchUserR(usuario);
-        password = await decrypt(password, process.env.ENCRYPT_TOKEN_SECRET);
+        //password = await decrypt(password, process.env.ENCRYPT_TOKEN_SECRET);
         const isValid = await bcrypt.compare(password, userT.password);
         if (!isValid) {
             response.code = 401
@@ -43,6 +43,15 @@ const authUserS = async (req, res) => {
         }else{
             userT.administrador = encrypt("false", process.env.ENCRYPT_TOKEN_SECRET)
         }
+
+        if (userT.dashboard == 1 ) {
+            userT.dashboard = encrypt("true", process.env.ENCRYPT_TOKEN_SECRET)
+        }else{
+            userT.dashboard = encrypt("false", process.env.ENCRYPT_TOKEN_SECRET)
+        }
+
+        userT.correo = encrypt(userT.correo, process.env.ENCRYPT_TOKEN_SECRET);
+
         response.code = 200
         response.message = "Autorizado"
         response.data = {
@@ -63,11 +72,10 @@ const authUserS = async (req, res) => {
             prendas_inferiores: userT.prendas_inferiores,
             prendas_otros: userT.prendas_otros,
             total: userT.total,
-            correo: encrypt(userT.correo, process.env.ENCRYPT_TOKEN_SECRET),
+            correo: userT.correo,
             administrador: userT.administrador,
-            dashboard: encrypt(userT.dashboard, process.env.ENCRYPT_TOKEN_SECRET),
+            dashboard: userT.dashboard,
             primer_ingreso: userT.primer_ingreso,
-
         }
         return response
     } catch (error) {
