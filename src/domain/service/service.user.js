@@ -26,9 +26,9 @@ const authUserS = async (req, res) => {
     }
     try {
         let { usuario, password } = req.body;
-        //usuario = await decrypt(usuario, process.env.ENCRYPT_TOKEN_SECRET);
+        usuario = await decrypt(usuario, process.env.ENCRYPT_TOKEN_SECRET);
         const userT = await searchUserR(usuario);
-        //password = await decrypt(password, process.env.ENCRYPT_TOKEN_SECRET);
+        password = await decrypt(password, process.env.ENCRYPT_TOKEN_SECRET);
         const isValid = await bcrypt.compare(password, userT.password);
         if (!isValid) {
             response.code = 401
