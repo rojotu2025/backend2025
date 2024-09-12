@@ -1,11 +1,11 @@
 const express = require("express");
-const { authUserC, recuperarContrasenaC, cambiarContrasenaC, reportUsuariosC, tabPedidosC, reportZonasC, reportLogsC, userHasChangedIdentityC} = require("../../api/controllers/controller.user");
+const { authUserC, recuperarContrasenaC, cambiarContrasenaC, reportUsuariosC, tabPedidosC, reportZonasC, reportLogsC, userHasChangedIdentityC } = require("../../api/controllers/controller.user");
 const { validateTokenC } = require("../controllers/controller.auth");
 const routers = express.Router();
 const bodyParser = require('body-parser');
 const { enviarCarritoC, buscarCarritoC, agregarPrendaC, quitarPrendaC } = require("../controllers/controller.carrito");
 const { listarPrendasC, buscarPrendaC } = require("../controllers/controller.prendas");
-const { reportLogsUsersC, reportLogsDayUsersC, reportLogsCartsC } = require("../controllers/controller.logs");
+const { reportLogsUsersC, reportLogsDayUsersC, reportLogsCartsDayC } = require("../controllers/controller.logs");
 
 routers.get("/", (_req, res) => {
     res.status(200).json({ message: 'Raiz del API', code: 200, data: {}, error: false })
@@ -36,6 +36,7 @@ routers.post('/quitarPrenda', bodyParser.json(), quitarPrendaC)
 routers.post('/reports/user', bodyParser.json(), reportLogsUsersC)
 // 1, kpi de ingreso de personal por dia
 routers.post('/reports/user/day', bodyParser.json(), reportLogsDayUsersC)
-
+// 1, kpi de ingreso de personal por dia
+routers.post('/reports/carritos/day', bodyParser.json(), reportLogsCartsDayC)
 
 module.exports = routers;

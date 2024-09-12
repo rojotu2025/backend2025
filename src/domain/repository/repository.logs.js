@@ -104,11 +104,6 @@ const reportLogsUsersR = async () => {
                 };
             }
 
-            result[pais][sucursal].totals = {
-                ...result[pais][sucursal].totals,
-                carritos_no_enviados: result[pais][sucursal].totals.carritos_no_enviados + count,
-            }
-
             result[pais][sucursal].carritos[genero] = {
                 carritos_enviados: 0,
                 carritos_no_enviados: count,
@@ -182,6 +177,50 @@ const reportLogsUsersR = async () => {
 
         carritosEnviados.forEach(carrito_enviado => {
             const { count, sucursal, genero, pais } = carrito_enviado;
+            if (!result[pais][sucursal]) {
+                result[pais][sucursal] = {
+                    totals: {
+                        nro_ingresos: 0,
+                        usuarios_no_loggeados: 0,
+                        carritos_enviados: 0,
+                        carritos_no_enviados: 0,
+                    },
+                    carritos: {
+                        "FEMENINO": {
+                            "carritos_enviados": 0,
+                            "carritos_no_enviados": 0
+                        },
+                        "MASCULINO": {
+                            "carritos_enviados": 0,
+                            "carritos_no_enviados": 0
+                        }
+                    },
+                    ingresos: [
+                        {
+                            "genero": "MASCULINO",
+                            "ingreso": true,
+                            "cantidad": 0
+                        },
+                        {
+                            "genero": "FEMENINO",
+                            "ingreso": true,
+                            "cantidad": 0
+                        },
+                        {
+                            "genero": "MASCULINO",
+                            "ingreso": false,
+                            "cantidad": 0
+                        },
+                        {
+                            "genero": "FEMENINO",
+                            "ingreso": false,
+                            "cantidad": 0
+                        }]
+                };
+            }
+        })
+        carritosEnviados.forEach(carrito_enviado => {
+            const { count, sucursal, genero, pais } = carrito_enviado;
             if (!result[pais]) {
                 result[pais] = {};
             }
@@ -201,68 +240,24 @@ const reportLogsUsersR = async () => {
                 ...result[pais][sucursal].carritos[genero],
                 carritos_enviados: count,
             }
+            result[pais][sucursal].totals = {
+                ...result[pais][sucursal].totals,
+                carritos_enviados: result[pais][sucursal].carritos["MASCULINO"].carritos_enviados + result[pais][sucursal].carritos["FEMENINO"].carritos_enviados,
+            }
         })
 
+        carritosNoEnviados.forEach(carritos => {
+            const { sucursal, pais } = carritos;
+            result[pais][sucursal].totals = {
+                ...result[pais][sucursal].totals,
+                carritos_no_enviados: result[pais][sucursal].carritos["MASCULINO"].carritos_no_enviados + result[pais][sucursal].carritos["FEMENINO"].carritos_no_enviados,
+            }
+        })
+        
         carritos_enviados_totales = carritosEnviadosCount;
         carritos_no_enviados_totales = carritosTotales - carritosEnviadosCount;
 
         return { result, carritos_enviados_totales, carritos_no_enviados_totales }
-    } catch (error) {
-        console.log(error);
-        return false
-    }
-}
-
-// 2, kpi de envio de carrito separado por hombre, mujere y sede
-const reportLogsCartsR = async () => {
-    try {
-        const logsCount = await db.logs.count({
-            attributes: [
-                [sequelize.literal(`COUNT(DISTINCT(usuario))`), 'count'],
-            ],
-            group: ["sucursal", "genero", "carrito_enviado", "pais"],
-            raw: true,
-        })
-
-        // Procesar los datos
-        const result = {};
-        let total_carritos_enviados = 0;
-        let total_carritos_no_enviados = 0;
-
-        logsCount.forEach(log => {
-            const { count, sucursal, genero, carrito_enviado, pais } = log;
-
-            if (!result[pais]) {
-                result[pais] = [];
-            }
-
-            let sucursalData = result[pais].find(s => s.sucursal === sucursal);
-            if (!sucursalData) {
-                sucursalData = {
-                    sucursal,
-                    carritos_no_enviados: 0,
-                    carritos_enviados: 0,
-                    datos: []
-                };
-                result[pais].push(sucursalData);
-            }
-
-            sucursalData.datos.push({
-                count,
-                genero,
-                carritos_enviado: carrito_enviado
-            });
-
-            if (carrito_enviado) {
-                sucursalData.carritos_enviados += count;
-                total_carritos_enviados += count;
-            } else {
-                sucursalData.carritos_no_enviados += count;
-                total_carritos_no_enviados += count;
-            }
-        });
-
-        return { result, total_carritos_enviados, total_carritos_no_enviados }
     } catch (error) {
         console.log(error);
         return false
@@ -280,23 +275,49 @@ const reportLogsDayUsersR = async () => {
             group: ["fecha"],
             raw: true,
         })
-        
+
         logsCount.forEach((log)=>{
-            log.fecha=log.fecha + 'T00:00:00';
+            log.fecha= log.fecha + 'T00:00:00';
         })
-        
+
         const totalLogs = await db.logs.count({
             attributes: [
                 [sequelize.literal(`COUNT(id)`), 'count']
             ],
             raw: true,
         })
-
+        
         return { logs : logsCount, total: totalLogs }
     } catch (error) {
         console.log(error);
         return false
     }
 }
+   
+// 1, kpi de ingreso de personal por dia
+const reportLogsCartsDayR = async () => {
+    try {
+        const logsCount = await db.carritos.count({
+            attributes: [
+                [sequelize.literal(`DATE(fecha_actualizacion)`), 'fecha'],
+                [sequelize.literal(`COUNT(id)`), 'count']
+            ],
+            where: {
+                estado_carrito : "enviado"
+            },
+            group: ["fecha"],
+            raw: true,
+        })
 
-module.exports = { reportLogsUsersR, reportLogsDayUsersR, reportLogsCartsR };
+        logsCount.forEach((log)=>{
+            log.fecha= log.fecha + 'T00:00:00';
+        })
+
+        return { logs : logsCount }
+    } catch (error) {
+        console.log(error);
+        return false
+    }
+}
+
+module.exports = { reportLogsUsersR, reportLogsDayUsersR, reportLogsCartsDayR };

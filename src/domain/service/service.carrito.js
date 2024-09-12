@@ -1,4 +1,3 @@
-const { READUNCOMMITTED } = require("sequelize/lib/table-hints");
 const { buscarCarritoR, quitarPrendaR, agregarPrendaR, enviarCarritoR } = require("../repository/repository.carrito.js");
 const { searchUserR } = require('../repository/repository.user.js');
 const { authS, decode } = require('./service.auth.js');

@@ -1,5 +1,4 @@
-const { authUserS, recuperarContrasenaS, cambiarContrasenaS, agregarCorreoS, reportPedidosS, tabPedidosS, reportZonasS, reportUsuariosS, reportLogsS, userHasIdentityS, userHasChangedIdentityS } = require("../../domain/service/service.user");
-
+const { authUserS, recuperarContrasenaS, cambiarContrasenaS, agregarCorreoS, userHasChangedIdentityS } = require("../../domain/service/service.user");
 const authUserC = async (req, res) => {
     const response = await authUserS(req, res);
     res.status(response.code).json(response)
