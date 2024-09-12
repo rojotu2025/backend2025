@@ -26,9 +26,9 @@ const authUserS = async (req, res) => {
     }
     try {
         let { usuario, password } = req.body;
-        usuario = await decrypt(usuario, process.env.ENCRYPT_TOKEN_SECRET);
+        usuario = await decrypt(usuario, process.env.ENCRYPT_TOKEN_SECRET)
         const userT = await searchUserR(usuario);
-        password = await decrypt(password, process.env.ENCRYPT_TOKEN_SECRET);
+        password = await decrypt(password, process.env.ENCRYPT_TOKEN_SECRET)
         const isValid = await bcrypt.compare(password, userT.password);
         if (!isValid) {
             response.code = 401
@@ -38,48 +38,33 @@ const authUserS = async (req, res) => {
         }
         const accessToken = await generateAccessTokenS(userT.user);
         await logsLogIn(userT.user);
-        if (userT.administrador == 1 ) {
-            userT.administrador = encrypt("true", process.env.ENCRYPT_TOKEN_SECRET)
-        }else{
-            userT.administrador = encrypt("false", process.env.ENCRYPT_TOKEN_SECRET)
-        }
-
-        if (userT.dashboard == 1 ) {
-            userT.dashboard = encrypt("true", process.env.ENCRYPT_TOKEN_SECRET)
-        }else{
-            userT.dashboard = encrypt("false", process.env.ENCRYPT_TOKEN_SECRET)
-        }
-
-        userT.correo = encrypt(userT.correo, process.env.ENCRYPT_TOKEN_SECRET);
-
         response.code = 200
         response.message = "Autorizado"
         response.data = {
             user: encrypt(userT.user, process.env.ENCRYPT_TOKEN_SECRET),
             nombre: encrypt(userT.nombre, process.env.ENCRYPT_TOKEN_SECRET),
             token: accessToken,
-            rol: encrypt(userT.rol, process.env.ENCRYPT_TOKEN_SECRET),
-            genero: encrypt(userT.genero, process.env.ENCRYPT_TOKEN_SECRET),
-            clima: encrypt(userT.clima, process.env.ENCRYPT_TOKEN_SECRET),
-            grupo: encrypt(userT.grupo, process.env.ENCRYPT_TOKEN_SECRET),
-            ciudad: encrypt(userT.ciudad, process.env.ENCRYPT_TOKEN_SECRET),
-            pais: encrypt(userT.pais, process.env.ENCRYPT_TOKEN_SECRET),
-            sucursal: encrypt(userT.sucursal, process.env.ENCRYPT_TOKEN_SECRET),
-            cargo: encrypt(userT.cargo, process.env.ENCRYPT_TOKEN_SECRET),
-            vp: encrypt(userT.VP, process.env.ENCRYPT_TOKEN_SECRET),
-            identidad: encrypt(userT.identidad, process.env.ENCRYPT_TOKEN_SECRET),
+            rol: userT.rol,
+            genero: userT.genero,
+            clima: userT.clima,
+            grupo: userT.grupo,
+            ciudad: userT.ciudad,
+            pais: userT.pais,
+            sucursal: userT.sucursal,
+            cargo: userT.cargo,
+            vp: userT.VP,
+            identidad: userT.identidad,
             prendas_superiores: userT.prendas_superiores,
             prendas_inferiores: userT.prendas_inferiores,
             prendas_otros: userT.prendas_otros,
             total: userT.total,
-            correo: userT.correo,
-            administrador: userT.administrador,
-            dashboard: userT.dashboard,
+            correo: encrypt(userT.correo, process.env.ENCRYPT_TOKEN_SECRET),
             primer_ingreso: userT.primer_ingreso,
+            administrador: userT.administrador,
+            dashboard: userT.dashboard
         }
         return response
     } catch (error) {
-        console.log(error);
         response.code = 401
         response.message = "Contaseña y/o usuario incorrecto"
         response.data = []

@@ -1,5 +1,5 @@
 const db = require("../model/index.js");
-const { buscarParametrosUsuarioR, buscarEstadoCarritoR } = require("../repository/repository.user.js");
+const { buscarCarritoUsuarioR, buscarParametrosUsuarioR, buscarEstadoCarritoR } = require("../repository/repository.user.js");
 const { listarPrendasCarritoR } = require("./repository.prendas.js");
 
 const buscarCarritoR = async (usuario) => {
@@ -32,38 +32,50 @@ const buscarCarritoR = async (usuario) => {
 
 const agregarPrendaR = async (usuario, id_prenda, talla, dia) => {
     try {
-        const date = new Date();
-        const carrito = await db.carritos.findOrCreate({
-            where: { usuario: usuario },
-            defaults: {
-                estado_carrito: "creado",
-                fecha_solicitud: date.getTime(),
-                fecha_actualizacion: date.getTime()
-            },
-            raw: true
-        }).then((data) => {
-            return data
-        });
-         
-        if (carrito[0].estado_carrito == "enviado" || !carrito[0].id) {
+        const {id, estado_carrito} = await createCarritoR(usuario);
+        if (estado_carrito == "enviado") {
             return false
         } else {
             return await db.carrito_prendas.bulkCreate
-                (
-                    [
-                        {
-                            id_carrito: carrito[0].id,
-                            id_prenda: id_prenda,
-                            talla: talla,
-                            dia: dia
-                        },
-                    ],
-                    { updateOnDuplicate: ['talla', 'dia'] },
-                )
+            (
+                [
+                    {
+
+                        id_carrito: id,
+                        id_prenda: id_prenda,
+                        talla: talla,
+                        dia: dia
+                    },
+                ],
+                { updateOnDuplicate: ['talla', 'dia'] },
+            )
         }
     } catch (error) {
-        console.log(error);
         return false;
+    }
+}
+
+const createCarritoR = async (usuario) => {
+    const date = new Date();
+    let id;
+
+    const carrito_usuario = await db.carritos.findOne({
+        where: {
+            usuario: usuario,
+        },
+        raw: true
+    });
+    if (carrito_usuario) {
+        return carrito_usuario
+    }else{
+        const carrito = await db.carritos.create(
+            {
+                usuario: usuario,
+                estado_carrito: "creado",
+                fecha_solicitud: date.getTime(),
+                fecha_actualizacion: date.getTime()
+            });
+        return carrito
     }
 }
 
@@ -146,4 +158,4 @@ const enviarCarritoR = async (usuarioT) => {
 
 }
 
-module.exports = { buscarCarritoR, agregarPrendaR, quitarPrendaR, enviarCarritoR }
+module.exports = { buscarCarritoR, agregarPrendaR, quitarPrendaR, createCarritoR, enviarCarritoR }
