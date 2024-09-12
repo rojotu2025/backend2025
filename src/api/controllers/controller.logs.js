@@ -1,4 +1,4 @@
-const { reportLogsUsersS, reportLogsDayUsersS, reportLogsCartsDayS } = require("../../domain/service/service.logs");
+const { reportLogsDayUsersS, reportLogsUsersS, reportLogsCartsS } = require("../../domain/service/service.logs");
 
 const reportLogsDayUsersC = async (req, res) => {
     if (req.header("token")) {
@@ -33,9 +33,9 @@ const reportLogsUsersC = async (req, res) => {
     }
 }
 
-const reportLogsCartsDayC = async (req, res) => {
+const reportLogsCartsC = async (req, res) => {
     if (req.header("token")) {
-            const response = await reportLogsCartsDayS(req.header("token"));
+            const response = await reportLogsCartsS(req.header("token"));
             return res.status(response.code).json(response);
     }else{
         let response = {
@@ -47,4 +47,4 @@ const reportLogsCartsDayC = async (req, res) => {
     }
 }
 
-module.exports = { reportLogsUsersC, reportLogsDayUsersC, reportLogsCartsDayC };
+module.exports = { reportLogsUsersC, reportLogsDayUsersC, reportLogsCartsC  };

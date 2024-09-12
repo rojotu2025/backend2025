@@ -2,6 +2,8 @@ const bcrypt = require('bcrypt');
 const db = require("../model/index.js");
 const { Op } = require("sequelize");
 const sequelize = require("sequelize");
+const { Sequelize } = require("sequelize");
+const { raw } = require('body-parser');
 
 const buscarCarritoUsuarioR = async (usuario) => {
     try {
@@ -24,8 +26,7 @@ const buscarCarritoUsuarioR = async (usuario) => {
 
 const buscarEstadoCarritoR = async (usuario) => {
     try {
-        const carrito_usuario = await db.carritos.findAll({
-            limit:1,
+        const carrito_usuario = await db.carritos.findOne({
             where: {
                 usuario: usuario,
             },
@@ -36,7 +37,7 @@ const buscarEstadoCarritoR = async (usuario) => {
             return false
         }
 
-        return carrito_usuario[0]
+        return carrito_usuario
     } catch (error) {
         return false
     }
