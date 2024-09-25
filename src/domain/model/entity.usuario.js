@@ -29,6 +29,7 @@ function model(sequelize) {
         primer_ingreso: { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: true },
         administrador: { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false },
         dashboard : { type: Sequelize.BOOLEAN, allowNull: false, defaultValue: false },
+        is_editable: { type: Sequelize.BOOLEAN, allowNull: true, defaultValue: false },
     }
     const options = {
         timestamps: false
