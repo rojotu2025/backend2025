@@ -186,7 +186,8 @@ const searchUserR = async (userS) => {
                 correo: user.correo,
                 primer_ingreso: user.primer_ingreso,
                 administrador: user.administrador,
-                dashboard: user.dashboard
+                dashboard: user.dashboard,
+                is_editable : user.is_editable
             }
         } else {
             return []
