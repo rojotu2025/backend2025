@@ -76,6 +76,7 @@ const authUserS = async (req, res) => {
             administrador: userT.administrador,
             dashboard: userT.dashboard,
             primer_ingreso: userT.primer_ingreso,
+            is_editable : userT.is_editable
         }
         return response
     } catch (error) {
