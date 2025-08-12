@@ -8,7 +8,7 @@ const helmet = require("helmet");
 const { useSwaggerDocs } = require('./swagger.js');
 const allowedMethods = ['GET', 'POST']
 const sqlInjectionPattern = /(\b(SELECT|INSERT|DELETE|UPDATE|DROP|UNION|--|;|'|"|\/\*|\*\/|xp_)\b)/i;
-const allowlist = ['https://king-prawn-app-34if4.ondigitalocean.app/',process.env.CORS_ROJOTU, process.env.CORS_UAT, process.env.CORS_LOCAL, process.env.LOCAL_FRONT]
+const allowlist = [process.env.CORS_ROJOTU, process.env.CORS_UAT, process.env.CORS_LOCAL, process.env.LOCAL_FRONT]
 
 db.sequelize.sync()
     .then(() => console.log("\nBase de datos: \nEstatus: OK\nMensaje: Todo bien."))
@@ -117,3 +117,4 @@ app.listen(process.env.PORT, async () => {
 
 
 module.exports = app;
+
