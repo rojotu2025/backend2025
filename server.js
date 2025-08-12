@@ -8,7 +8,7 @@ const helmet = require("helmet");
 const { useSwaggerDocs } = require('./swagger.js');
 const allowedMethods = ['GET', 'POST']
 const sqlInjectionPattern = /(\b(SELECT|INSERT|DELETE|UPDATE|DROP|UNION|--|;|'|"|\/\*|\*\/|xp_)\b)/i;
-const allowlist = [process.env.CORS_ROJOTU, process.env.CORS_UAT, process.env.CORS_LOCAL, process.env.LOCAL_FRONT]
+const allowlist = ['https://king-prawn-app-34if4.ondigitalocean.app/',process.env.CORS_ROJOTU, process.env.CORS_UAT, process.env.CORS_LOCAL, process.env.LOCAL_FRONT]
 
 db.sequelize.sync()
     .then(() => console.log("\nBase de datos: \nEstatus: OK\nMensaje: Todo bien."))
@@ -114,5 +114,6 @@ if (process.env.SWAGGER_ON === true) {
 app.listen(process.env.PORT, async () => {
     console.log(`\n\n API RojoTu Corriendo en \n\n PORT: ${process.env.PORT}\n ACCESS URL: ${process.env.HOST}:${process.env.PORT}\n\n`)
 })
+
 
 module.exports = app;
